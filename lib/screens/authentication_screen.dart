@@ -25,7 +25,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   void initState() {
     super.initState();
-    _AppBloc.add(RegistrationEvent());
   }
 
   Widget build(BuildContext context) {
@@ -79,6 +78,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               onChanged: (value) => _PasswordController.text,
                             ),
                           ),
+
+                          //Animated Text Field
+
                           TweenAnimationBuilder(
                             tween: Tween(
                               begin: ConfirmPasswordBolean ? QueryWidth / 4 : QueryWidth + 1,
@@ -107,12 +109,23 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           PrettyWaveButton(
                             child: const Text(
-                              'Login',
+                              'Start',
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              if (ConfirmPasswordBolean == false) {
+                                if (_PasswordConfirmingController.text.trim() == _PasswordController.text.trim()) {
+                                  _AppBloc.add(RegistrationEvent(email: _MailController.text, password: _PasswordController.text, cont: context));
+                                } else {
+                                  //add show dialog
+                                  debugPrint("throw Error");
+                                }
+                              } else {
+                                _AppBloc.add(LogInEvent(email: _MailController.text, password: _PasswordController.text, cont: context));
+                              }
+                            },
                           ),
                           PrettySlideUpButton(
                               firstChild: Text(

@@ -9,7 +9,6 @@ class FirebaseAuthFeatures {
     try {
       await _fireauth.createUserWithEmailAndPassword(email: _email, password: _password);
       await FireStorages().userReggister(_email);
-      await _fireauth.currentUser?.sendEmailVerification();
       return showDialog(
           context: cont,
           builder: (cont) => AlertDialog(
@@ -87,15 +86,6 @@ class FirebaseAuthFeatures {
     try {
       await _fireauth.currentUser?.reload();
       await _fireauth.signInWithEmailAndPassword(email: _email, password: _password);
-      if (_fireauth.currentUser?.emailVerified == false) {
-        return showDialog(
-            context: cont,
-            builder: (cont) => AlertDialog(
-                  backgroundColor: Colors.red,
-                  title: Text("Your email is not comfirmed"),
-                  content: Text("Please check your email and confirm it"),
-                ));
-      }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "invalid-email":

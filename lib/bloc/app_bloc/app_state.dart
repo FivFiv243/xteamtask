@@ -17,7 +17,17 @@ class LoginState extends AppState {
   List<Object?> get props => [];
 }
 
-class ForgotPasswordState extends AppState {
+class SettingsState extends AppState {
+  @override
+  List<Object?> get props => [];
+}
+
+class WeatherState extends AppState {
+  @override
+  List<Object?> get props => [];
+}
+
+class MapState extends AppState {
   @override
   List<Object?> get props => [];
 }
