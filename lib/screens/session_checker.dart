@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xteamtask/screens/app_screen.dart';
-import 'package:xteamtask/screens/registartion_screen.dart';
+import 'package:xteamtask/screens/authentication_screen.dart';
 
 class AuthCheck extends StatefulWidget {
   const AuthCheck({super.key});
