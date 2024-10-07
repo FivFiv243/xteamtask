@@ -30,6 +30,12 @@ dependencies:
   flutter_bloc: ^8.1.6
   equatable: ^2.0.5
 
+  #maps
+  flutter_map: ^7.0.2
+
+  #API's
+  dio: ^5.7.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

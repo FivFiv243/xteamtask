@@ -21,7 +21,6 @@ class _MyHomePageState extends State<AuthCheck> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          _AppBloc.add(MapEvent());
           return AppScreen(); // here app screen
         } else {
           return AuthScreen(); // here reg screen

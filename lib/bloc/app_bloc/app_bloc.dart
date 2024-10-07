@@ -38,5 +38,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         emit(SettingsState());
       } catch (e) {}
     });
+    on<LogoutEvent>((event, emit) {
+      FirebaseAuthFeatures().SignOutAcc();
+      emit(RegistrationState());
+    });
   }
 }
