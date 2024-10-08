@@ -39,3 +39,10 @@ class SettingsEvent extends AppEvent {
   @override
   List<Object?> get props => [];
 }
+
+class AddNewPointEvent extends AppEvent {
+  final MarkerMapClass NewMapMarker;
+  AddNewPointEvent({required this.NewMapMarker});
+  @override
+  List<Object?> get props => [NewMapMarker];
+}

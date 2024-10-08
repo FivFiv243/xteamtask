@@ -1,13 +1,16 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:xteamtask/fetures/map_logic/marker_class.dart';
 import 'package:xteamtask/firebase_things/firebase_auth.dart';
+import 'package:xteamtask/firebase_things/firebase_storages.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc() : super(AppInitial()) {
+    //auth events
+
     on<AppEvent>((event, emit) {
       try {} catch (e) {}
     });
@@ -23,8 +26,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         emit(RegistrationState());
       } catch (e) {}
     });
+    on<LogoutEvent>((event, emit) {
+      FirebaseAuthFeatures().SignOutAcc();
+      emit(RegistrationState());
+    });
+
+    //app events
+
     on<MapEvent>((event, emit) {
       try {
+        FireStorages().getPoints();
         emit(MapState());
       } catch (e) {}
     });
@@ -38,9 +49,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         emit(SettingsState());
       } catch (e) {}
     });
-    on<LogoutEvent>((event, emit) {
-      FirebaseAuthFeatures().SignOutAcc();
-      emit(RegistrationState());
+    on<AddNewPointEvent>((event, emit) {
+      FireStorages().PushPoint(event.NewMapMarker).whenComplete(() {
+        emit(MapState());
+      });
     });
   }
 }

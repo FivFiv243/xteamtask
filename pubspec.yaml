@@ -51,3 +51,4 @@ flutter:
   assets:
   - lib/assets/lottie_animations/LottieAnimationMap.json
   - lib\assets\rive_animation_presset\x_team_task_animationpresset.riv
+  - lib/assets/image/clipart3004129.png

@@ -35,7 +35,7 @@ class _AppScreenState extends State<AppScreen> {
     final QueryHight = MediaQuery.of(context).size.height;
     return Scaffold(
       bottomNavigationBar: SafeArea(
-          minimum: EdgeInsets.all(1),
+          minimum: EdgeInsets.all(2),
           child: Container(
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(blurRadius: 0.123, spreadRadius: 0.453, offset: Offset(3, 3)),
@@ -142,12 +142,7 @@ class _AppScreenState extends State<AppScreen> {
 
             //There else screen
             else {
-              return SafeArea(
-                  child: OutlinedButton(
-                      onPressed: () {
-                        _AppBloc.add(MapEvent());
-                      },
-                      child: Text("Retry")));
+              return SafeArea(child: CircularProgressIndicator());
             }
           }),
     );
