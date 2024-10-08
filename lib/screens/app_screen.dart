@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:pretty_animated_buttons/pretty_animated_buttons.dart';
 import 'package:rive/rive.dart';
 import 'package:xteamtask/bloc/app_bloc/app_bloc.dart';
 import 'package:xteamtask/fetures/rive_utils/rive_utils.dart';
@@ -32,7 +31,6 @@ class _AppScreenState extends State<AppScreen> {
   @override
   Widget build(BuildContext context) {
     final QueryWidth = MediaQuery.of(context).size.width;
-    final QueryHight = MediaQuery.of(context).size.height;
     return Scaffold(
       bottomNavigationBar: SafeArea(
           minimum: EdgeInsets.all(2),

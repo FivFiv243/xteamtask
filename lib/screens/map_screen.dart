@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 import 'package:pretty_animated_buttons/pretty_animated_buttons.dart';
 import 'package:xteamtask/bloc/app_bloc/app_bloc.dart';
+import 'package:xteamtask/fetures/map_logic/location_caller.dart';
 import 'package:xteamtask/fetures/map_logic/marker_class.dart';
 import 'package:xteamtask/firebase_things/firebase_storages.dart';
 
@@ -17,6 +19,12 @@ final _nameController = TextEditingController();
 final _discriptionController = TextEditingController();
 final _AppBloc = AppBloc();
 late Stream dotStream;
+late LocationData _currentPosition;
+
+Future _getLoc() async {
+  _currentPosition = LocationData.fromMap(Map());
+  _currentPosition = await fetchLocation();
+}
 
 Future _getMapDots() async {
   dotStream = Stream.empty();
@@ -27,6 +35,9 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    _getLoc().whenComplete(() {
+      setState(() {});
+    });
     _getMapDots().whenComplete(() {
       setState(() {});
     });
@@ -42,7 +53,7 @@ class _MapScreenState extends State<MapScreen> {
         onTap: (tapPosition, point) {
           showDialog(
               context: context,
-              builder: (BuildContext context2) {
+              builder: (BuildContext context3) {
                 return AlertDialog(
                   content: Column(
                     children: [
@@ -87,11 +98,10 @@ class _MapScreenState extends State<MapScreen> {
                           ),
                         ),
                         onPressed: () {
-                          //implement counter and id of marker
+                          Navigator.of(context3, rootNavigator: true).pop('dialog');
                           _AppBloc.add(AddNewPointEvent(NewMapMarker: MarkerMapClass(name: _nameController.text.trim(), description: _discriptionController.text.trim(), Lat: point.latitude, Lng: point.longitude)));
-                          _nameController.text = '';
-                          _discriptionController.text = '';
-                          Navigator.of(context2, rootNavigator: true).pop('dialog');
+                          _nameController.clear();
+                          _discriptionController.clear();
                         },
                       ),
                     ],
@@ -115,52 +125,56 @@ class _MapScreenState extends State<MapScreen> {
               return snapshot.hasData
                   ? MarkerLayer(
                       markers: snapshot.data.docs.length > 0
-                          ? List.generate(snapshot.data.docs.length, (index) {
-                              var Mark = snapshot.data.docs[index];
-                              return Marker(
-                                  point: LatLng(Mark['lat'], Mark['lng']),
-                                  child: InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context2) {
-                                            return AlertDialog(
-                                                content: Column(children: [
-                                              Text(
-                                                Mark['name'],
-                                                maxLines: 4,
-                                              ),
-                                              Text(
-                                                Mark['description'],
-                                                maxLines: 12,
-                                              ),
-                                              Spacer(),
-                                              PrettyWaveButton(
-                                                child: const Text(
-                                                  'delete',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
+                          ? List.generate(snapshot.data.docs.length + 1, (index) {
+                              if (index < snapshot.data.docs.length) {
+                                var Mark = snapshot.data.docs[index];
+                                return Marker(
+                                    point: LatLng(Mark['lat'], Mark['lng']),
+                                    child: InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context2) {
+                                              return AlertDialog(
+                                                  content: Column(children: [
+                                                Text(
+                                                  Mark['name'],
+                                                  maxLines: 4,
                                                 ),
-                                                onPressed: () {
-                                                  snapshot.data.docs[index].reference.delete();
-                                                  Navigator.of(context2, rootNavigator: true).pop('dialog');
-                                                },
-                                              ),
-                                            ]));
-                                          });
-                                    },
-                                    child: Image.asset(
-                                      'lib/assets/image/clipart3004129.png',
-                                      width: 100,
-                                      height: 100,
-                                      alignment: Alignment.center,
-                                    ),
-                                  ));
+                                                Text(
+                                                  Mark['description'],
+                                                  maxLines: 12,
+                                                ),
+                                                Spacer(),
+                                                PrettyWaveButton(
+                                                  child: const Text(
+                                                    'delete',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    snapshot.data.docs[index].reference.delete();
+                                                    Navigator.of(context2, rootNavigator: true).pop('dialog');
+                                                  },
+                                                ),
+                                              ]));
+                                            });
+                                      },
+                                      child: Image.asset(
+                                        'lib/assets/image/clipart3004129.png',
+                                        width: 100,
+                                        height: 100,
+                                        alignment: Alignment.center,
+                                      ),
+                                    ));
+                              } else {
+                                return Marker(point: LatLng(_currentPosition.latitude != null ? _currentPosition.latitude! : 0.0, _currentPosition.latitude != null ? _currentPosition.longitude! : 0), child: InkWell(onTap: () {}, child: Icon(Icons.man)));
+                              }
                             })
                           : [])
                   : MarkerLayer(
-                      markers: [Marker(point: LatLng(55.755793, 37.617134), child: CircularProgressIndicator())],
+                      markers: [],
                     );
             })
       ],
