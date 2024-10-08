@@ -89,6 +89,8 @@ class _MapScreenState extends State<MapScreen> {
                         onPressed: () {
                           //implement counter and id of marker
                           _AppBloc.add(AddNewPointEvent(NewMapMarker: MarkerMapClass(name: _nameController.text.trim(), description: _discriptionController.text.trim(), Lat: point.latitude, Lng: point.longitude)));
+                          _nameController.text = '';
+                          _discriptionController.text = '';
                           Navigator.of(context2, rootNavigator: true).pop('dialog');
                         },
                       ),
