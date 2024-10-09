@@ -35,6 +35,7 @@ dependencies:
   location: ^7.0.0
   #API's
   dio: ^5.7.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -52,3 +53,5 @@ flutter:
   - lib/assets/lottie_animations/LottieAnimationMap.json
   - lib\assets\rive_animation_presset\x_team_task_animationpresset.riv
   - lib/assets/image/clipart3004129.png
+  - .env
+  - .env.prod

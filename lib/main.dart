@@ -1,9 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xteamtask/screens/session_checker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:xteamtask/firebase_things/firebase_options.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+  if (kReleaseMode) {
+    await dotenv.load(fileName: ".env.prod");
+  } else {
+    await dotenv.load(fileName: ".env");
+  }
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
