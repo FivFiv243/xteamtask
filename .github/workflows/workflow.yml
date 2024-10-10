@@ -21,6 +21,8 @@ jobs:
     - uses: subosito/flutter-action@v2
       with:
         channel: stable
+    - run: flutter clean
+    - run : flutter upgrade --force
     - run: sudo softwareupdate --install-rosetta --agree-to-license
     - run: flutter pub get
     - run: flutter doctor -v
