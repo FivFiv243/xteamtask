@@ -22,8 +22,12 @@ jobs:
       with:
         channel: stable
     - run: flutter pub get
+    - name: "env creator"
+      run: |
+        echo OPENWEATHER_API_KEY = ${{secrets.OPENWEATHER_API_KEY}} >>.env
+        echo OPENWEATHER_API_KEY = ${{secrets.OPENWEATHER_API_KEY}} >>.env.prod
     - run: flutter doctor -v
-    - run: flutter build apk --release --scan
+    - run: flutter build apk --release
 
  build_windows:
   runs-on: windows-latest
@@ -38,6 +42,10 @@ jobs:
       with:
         channel: stable
     - run: flutter pub get
+    - name: "env creator"
+      run: |
+        echo OPENWEATHER_API_KEY = ${{secrets.OPENWEATHER_API_KEY}} >>.env
+        echo OPENWEATHER_API_KEY = ${{secrets.OPENWEATHER_API_KEY}} >>.env.prod
     - run: flutter doctor -v
     - run: flutter build apk --release
     
