@@ -110,13 +110,21 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               ]),
                             )
                           ])),
-                      Text(
-                        "You are now in the " + weatherInfoClass!.timezone,
-                        style: TextStyle(
-                          fontSize: QueryHight / 45,
+                      Padding(padding: EdgeInsets.fromLTRB(0, QueryHight / 65, 0, 0)),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.5),
+                          color: Colors.grey.withOpacity(0.25),
                         ),
-                        maxLines: 5,
-                      ),
+                        child: Text(
+                          "You are now in " + weatherInfoClass!.timezone,
+                          style: TextStyle(
+                            fontSize: QueryHight / 45,
+                          ),
+                          maxLines: 5,
+                        ),
+                      )
                     ],
                   )
                 : Center(child: CircularProgressIndicator())));
