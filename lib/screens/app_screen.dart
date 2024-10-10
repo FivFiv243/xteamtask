@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 import 'package:xteamtask/bloc/app_bloc/app_bloc.dart';
 import 'package:xteamtask/fetures/rive_utils/rive_utils.dart';
+import 'package:xteamtask/screens/weather_screen.dart';
 import 'package:xteamtask/screens/map_screen.dart';
 import 'package:xteamtask/screens/settings_screen.dart';
 
@@ -70,7 +71,7 @@ class _AppScreenState extends State<AppScreen> {
                   padding: EdgeInsets.fromLTRB(QueryWidth / 5, 0, 0, 0),
                   child:
 
-                      //Weather Icon
+                      //Map Icon
 
                       Container(
                     width: 65,
@@ -95,7 +96,7 @@ class _AppScreenState extends State<AppScreen> {
                   padding: EdgeInsets.fromLTRB(QueryWidth / 5, 0, 0, 0),
                   child:
 
-                      //Weather Icon
+                      //Settings Icon
 
                       Container(
                     width: 65,
@@ -128,7 +129,7 @@ class _AppScreenState extends State<AppScreen> {
 
             //There Weather Screen down there
             if (state is WeatherState) {
-              return SafeArea(child: Text("WeatherHere"));
+              return WeatherScreen();
             }
             //There Weather Screen end there
 
