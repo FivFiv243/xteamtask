@@ -9,7 +9,7 @@ on:
     - 'main'
 
 jobs:
- build_ubuntu:
+ build_macos:
    runs-on: macos-latest
    steps:
     - uses: actions/checkout@v4
@@ -21,11 +21,8 @@ jobs:
     - uses: subosito/flutter-action@v2
       with:
         channel: stable
+    - run: sudo softwareupdate --install-rosetta --agree-to-license
     - run: flutter pub get
-    - name: "env creator"
-      run: |
-        echo OPENWEATHER_API_KEY = ${{secrets.OPENWEATHER_API_KEY}} >>.env
-        echo OPENWEATHER_API_KEY = ${{secrets.OPENWEATHER_API_KEY}} >>.env.prod
     - run: flutter doctor -v
     - run: flutter build apk --release
 
@@ -42,10 +39,6 @@ jobs:
       with:
         channel: stable
     - run: flutter pub get
-    - name: "env creator"
-      run: |
-        echo OPENWEATHER_API_KEY = ${{secrets.OPENWEATHER_API_KEY}} >>.env
-        echo OPENWEATHER_API_KEY = ${{secrets.OPENWEATHER_API_KEY}} >>.env.prod
     - run: flutter doctor -v
     - run: flutter build apk --release
     
