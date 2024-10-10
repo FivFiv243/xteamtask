@@ -125,7 +125,7 @@ class _MapScreenState extends State<MapScreen> {
               return snapshot.hasData
                   ? MarkerLayer(
                       markers: snapshot.data.docs.length > 0
-                          ? List.generate(snapshot.data.docs.length + 1, (index) {
+                          ? List.generate(_currentPosition == LocationData.fromMap(Map()) ? snapshot.data.docs.length : snapshot.data.docs.length + 1, (index) {
                               if (index < snapshot.data.docs.length) {
                                 var Mark = snapshot.data.docs[index];
                                 return Marker(

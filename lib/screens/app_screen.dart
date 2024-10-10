@@ -39,7 +39,7 @@ class _AppScreenState extends State<AppScreen> {
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(blurRadius: 0.123, spreadRadius: 0.453, offset: Offset(3, 3)),
               ], color: Colors.white60, border: Border.all(color: const Color.fromARGB(96, 0, 0, 0))),
-              padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
               height: 65,
               child: Row(children: [
                 Padding(
@@ -67,55 +67,51 @@ class _AppScreenState extends State<AppScreen> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(QueryWidth / 5, 0, 0, 0),
-                  child:
+                Spacer(),
+                //Map Icon
 
-                      //Map Icon
-
-                      Container(
-                    width: 65,
-                    height: 65,
-                    child: GestureDetector(
-                      onTap: () {
-                        MapTrigger.fire();
-                        _AppBloc.add(MapEvent());
+                Container(
+                  width: 65,
+                  height: 65,
+                  child: GestureDetector(
+                    onTap: () {
+                      MapTrigger.fire();
+                      _AppBloc.add(MapEvent());
+                    },
+                    child: RiveAnimation.asset(
+                      "lib/assets/rive_animation_presset/x_team_task_animationpresset.riv",
+                      artboard: "MapBoard",
+                      onInit: (artboard) {
+                        StateMachineController controller = RiveUtils.GetRiveController(artboard, StateMachineName: "State Machine 1");
+                        MapTrigger = controller.findSMI("Trigger 1");
                       },
-                      child: RiveAnimation.asset(
-                        "lib/assets/rive_animation_presset/x_team_task_animationpresset.riv",
-                        artboard: "MapBoard",
-                        onInit: (artboard) {
-                          StateMachineController controller = RiveUtils.GetRiveController(artboard, StateMachineName: "State Machine 1");
-                          MapTrigger = controller.findSMI("Trigger 1");
-                        },
-                      ),
+                    ),
+                  ),
+                ),
+                Spacer(),
+
+                //Settings Icon
+
+                Container(
+                  width: 65,
+                  height: 65,
+                  child: GestureDetector(
+                    onTap: () {
+                      SettingsTrigger.fire();
+                      _AppBloc.add(SettingsEvent());
+                    },
+                    child: RiveAnimation.asset(
+                      "lib/assets/rive_animation_presset/x_team_task_animationpresset.riv",
+                      artboard: "SettingsBoard",
+                      onInit: (artboard) {
+                        StateMachineController controller = RiveUtils.GetRiveController(artboard, StateMachineName: "State Machine 1");
+                        SettingsTrigger = controller.findSMI("Trigger 1");
+                      },
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(QueryWidth / 5, 0, 0, 0),
-                  child:
-
-                      //Settings Icon
-
-                      Container(
-                    width: 65,
-                    height: 65,
-                    child: GestureDetector(
-                      onTap: () {
-                        SettingsTrigger.fire();
-                        _AppBloc.add(SettingsEvent());
-                      },
-                      child: RiveAnimation.asset(
-                        "lib/assets/rive_animation_presset/x_team_task_animationpresset.riv",
-                        artboard: "SettingsBoard",
-                        onInit: (artboard) {
-                          StateMachineController controller = RiveUtils.GetRiveController(artboard, StateMachineName: "State Machine 1");
-                          SettingsTrigger = controller.findSMI("Trigger 1");
-                        },
-                      ),
-                    ),
-                  ),
+                  padding: EdgeInsets.fromLTRB(QueryWidth / 150, 0, 0, 0),
                 ),
               ]))),
       body: BlocBuilder<AppBloc, AppState>(
