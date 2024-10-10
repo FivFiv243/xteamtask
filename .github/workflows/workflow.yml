@@ -1,7 +1,7 @@
 name: Flutter PR
 
 on:
- workflow_dispatch:
+ workflow_dispatch
 
 
 jobs:
