@@ -40,9 +40,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^5.4.4
-  firebase_auth_mocks: ^0.14.1
-  google_sign_in_mocks: ^0.3.0
 
   flutter_lints: ^3.0.0
 
