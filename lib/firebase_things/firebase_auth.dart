@@ -86,6 +86,7 @@ class FirebaseAuthFeatures {
     try {
       await _fireauth.currentUser?.reload();
       await _fireauth.signInWithEmailAndPassword(email: _email, password: _password);
+      return true;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "invalid-email":

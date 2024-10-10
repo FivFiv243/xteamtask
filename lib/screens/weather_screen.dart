@@ -46,7 +46,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
   void initState() {
     _getLoc().whenComplete(() {
       _getInfo(_currentPosition).whenComplete(() {
-        setState(() {});
+        if (!mounted) {
+          setState(() {});
+        }
       });
     });
     super.initState();

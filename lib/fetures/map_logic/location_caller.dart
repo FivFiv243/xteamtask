@@ -1,26 +1,26 @@
 import 'package:location/location.dart';
 
 dynamic fetchLocation() async {
-  bool _serviceEnabled;
-  PermissionStatus _permissionGranted;
+  bool serviceEnabled;
+  PermissionStatus permissionGranted;
   Location location = new Location();
-  LocationData _currentPosition;
+  LocationData currentPosition;
 
-  _serviceEnabled = await location.serviceEnabled();
-  if (!_serviceEnabled) {
-    _serviceEnabled = await location.requestService();
-    if (!_serviceEnabled) {
+  serviceEnabled = await location.serviceEnabled();
+  if (!serviceEnabled) {
+    serviceEnabled = await location.requestService();
+    if (!serviceEnabled) {
       return;
     }
   }
 
-  _permissionGranted = await location.hasPermission();
-  if (_permissionGranted == PermissionStatus.denied) {
-    _permissionGranted = await location.requestPermission();
-    if (_permissionGranted != PermissionStatus.granted) {
+  permissionGranted = await location.hasPermission();
+  if (permissionGranted == PermissionStatus.denied) {
+    permissionGranted = await location.requestPermission();
+    if (permissionGranted != PermissionStatus.granted) {
       return;
     }
   }
 
-  return _currentPosition = await location.getLocation();
+  return currentPosition = await location.getLocation();
 }
