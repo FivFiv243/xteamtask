@@ -8,10 +8,8 @@ on:
 
 jobs:
  build:
-   name: flutter build
    runs-on: ubuntu-latest
    steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-java@v1
     - run: flutter pub get
     - run: flutter build apk --release
