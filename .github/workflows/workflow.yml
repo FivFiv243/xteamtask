@@ -3,11 +3,12 @@ name: Flutter PR
 on:
  pull_request:
    branches:
-     - "main"
+     - "origin/main"
 
 
 jobs:
  build:
+   name: flutter build
    runs-on: ubuntu-latest
    steps:
     - uses: actions/checkout@v2
